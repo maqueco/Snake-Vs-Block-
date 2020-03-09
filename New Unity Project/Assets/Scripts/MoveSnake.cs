@@ -1,13 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class MoveSnake : MonoBehaviour
 {
+    [SerializeField]
     private float moveSpeed = 1f;
+    [SerializeField]
     private float speed = .1f;
     public List<GameObject> snakeParts; //To add more objects
     private Vector2 lastLocation;
+   // private int lifepoints = 4;
+   // public GameObject player;
+   // public Text points;
+    int count;
+    Rigidbody2D rb;
 
     void Start()
     {
@@ -29,21 +37,42 @@ public class MoveSnake : MonoBehaviour
             }
         }
 
-            if (Input.GetAxis("Horizontal") > 0)
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            if (transform.position.x < 3)
             {
-                if (transform.position.x < 3)
-                {
-                    snakeParts[0].transform.Translate(Vector2.right * speed);
-                }
+                snakeParts[0].transform.Translate(Vector2.right * speed);
             }
+        }
 
-            if (Input.GetAxis("Horizontal") < 0)
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            if(transform.position.x > -3)
             {
-                if(transform.position.x > -3)
-                {
-                    snakeParts[0].transform.Translate(Vector2.left * speed);
-                }
+                snakeParts[0].transform.Translate(Vector2.left * speed);
             }
-        //}
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Lifes")
+        {
+            Debug.Log("Detected");
+            count = count + 1;
+            Debug.Log("count " + count);
+            //Agregar en el scrip de life el numero de vidas de cada objeto y sumarlo al personaje
+        }
+        if (other.gameObject.tag == "Block")
+        {
+            Debug.Log("Detected");
+            Destroy(gameObject);
+            //Falta reiniciar lvl actual y puntaje, guardar puntaje global, acceder a otro scrip con la durabilidad del bloque
+        }
+        if (other.gameObject.tag == "Wall")
+        {
+            Debug.Log("Detected");
+            //Falta collisionar bien
+        }
     }
 }
