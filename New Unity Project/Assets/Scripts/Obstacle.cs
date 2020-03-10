@@ -8,6 +8,11 @@ public class Obstacle : MonoBehaviour
     private int obstaclePoints;
     public TextMesh textcounter;
 
+    public int ObstaclePoints
+        {
+            get { return obstaclePoints; }
+        }
+
     private void Start()
     {
         obstaclePoints = Random.Range(1, 50);
@@ -19,6 +24,4 @@ public class Obstacle : MonoBehaviour
 
 
 }
-/*Falta que se descuenten al colisionar 
- *Interfaz de texto del bloque
- */ 
+//Falta que se descuenten al colisionar 

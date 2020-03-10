@@ -121,8 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177a3606443fc194c9bd13e50e425080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rndlife: 0
-  lifetext: {fileID: 3614295494957094702}
+  rndLife: 0
+  LifeText: {fileID: 3614295494957094702}
 --- !u!1 &3614295494957094696
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3614295494957094696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.113, y: 0.216, z: 0}
+  m_LocalPosition: {x: -0.006, y: 0.17, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0}
   m_Children: []
   m_Father: {fileID: 3614295495149456448}
@@ -205,8 +205,8 @@ TextMesh:
   m_OffsetZ: 0
   m_CharacterSize: 0.36
   m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
+  m_Anchor: 4
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 30
   m_FontStyle: 0

@@ -11,26 +11,39 @@ public class MoveSnake : MonoBehaviour
     [SerializeField]
     private float speed = .1f;
     private Vector2 lastLocation;
-    private int lifepoints;
-    private int lifecount;
+    private static int lifepoints;
+    private int scorecount;
+
     [SerializeField]
     private TextMesh points;
+    [SerializeField]
+    private Text textUI;
     Rigidbody2D rb;
 
-    private Life lf;
+    private Life life;
     private Obstacle obstacle;
-
-    
+        
+    [SerializeField]
+    private GameObject part;
+    private GameObject newPart;
+    private int snakeLength;
 
     void Start()
     {
         lifepoints = 4;
+        scorecount = 0;
+        snakeLength = lifepoints;
+        AddBodySnake();
+    }
+    private void Awake()
+    {
+        obstacle = GameObject.FindWithTag("Block").GetComponent<Obstacle>();
     }
 
-
-    private void Update()
+    private void LateUpdate()
     {
         points.text = lifepoints.ToString();
+        textUI.text = scorecount.ToString();
     }
 
     private void FixedUpdate()
@@ -43,7 +56,7 @@ public class MoveSnake : MonoBehaviour
         {
             if (part != snakeParts[0])
             {
-                var newPosition = new Vector2(lastLocation.x, lastLocation.y - 1);
+                var newPosition = new Vector2(lastLocation.x, lastLocation.y - 0.4f);
                 lastLocation = part.transform.position;
                 part.transform.position = newPosition;
             }
@@ -71,21 +84,35 @@ public class MoveSnake : MonoBehaviour
 
         if (other.gameObject.tag == "Lifes")
         {
-            Debug.Log("Detected");
-            lifepoints = lifepoints + 1;
-            Debug.Log("count " + lifecount);
-            //Agregar en el scrip de life el numero de vidas de cada objeto y sumarlo al personaje
+            life = GameObject.FindWithTag("Lifes").GetComponent<Life>();
+            Debug.Log("Detected"+ life.RndLife);
+            lifepoints = lifepoints + life.RndLife;
+            AddBodySnake();
         }
         if (other.gameObject.tag == "Block")
         {
-            Debug.Log("Detected");
-            Destroy(gameObject);
-            //Falta reiniciar lvl actual y puntaje, guardar puntaje global, acceder a otro scrip con la durabilidad del bloque
+            Debug.Log("Detected" +obstacle.ObstaclePoints);
+            scorecount += obstacle.ObstaclePoints;   
+            if (lifepoints == 0)
+            {
+                Destroy(gameObject);
+            }
+            //Falta reiniciar lvl actual y puntaje, guardar puntaje global
         }
-        if (other.gameObject.tag == "Wall")
+    }
+    void AddBodySnake()
+    {
+    for (int i = 0; i < snakeLength; i++)
+    {
+        if (i == 0)
         {
-            Debug.Log("Detected");
-            //Falta collisionar bien
+            newPart = Instantiate(part, lastLocation, Quaternion.identity);
         }
+        else
+        {
+            newPart = Instantiate(part, new Vector3(snakeParts[i - 1].transform.position.x, snakeParts[i - 1].transform.position.y - 1f, 0f), Quaternion.identity);
+        }
+        snakeParts.Add(newPart);
+    }
     }
 }

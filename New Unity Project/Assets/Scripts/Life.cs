@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class Life : MonoBehaviour
 {
-    public int rndlife;
-    public TextMesh lifetext;
-
-    private void Start()
+    private int rndLife;
+    [SerializeField]
+    private TextMesh LifeText;
+    public int RndLife
     {
-        rndlife = Random.Range(1, 10);
+        get { return rndLife; }
+    }
+
+    void Start()
+    {
+        rndLife = Random.Range(1, 10);
     }
 
     void Update()
     {
-        lifetext.text = rndlife.ToString();
+        LifeText.text = rndLife.ToString();
     }
     private void OnTriggerEnter2D(Collider2D lifeIcon)
     {
@@ -23,7 +28,5 @@ public class Life : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }
-/*Falta sumar las vidas que se agregen
-*agregar texto con el numero de vida
-*/ 

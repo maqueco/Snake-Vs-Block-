@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Life.cs" />
     <Compile Include="Assets\Scripts\MoveSnake.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
