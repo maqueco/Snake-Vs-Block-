@@ -18,6 +18,8 @@ public class MoveSnake : MonoBehaviour
     private TextMesh points;
     [SerializeField]
     private Text textUI;
+    [SerializeField]
+    private Text textUILoseScore;
     Rigidbody2D rb;
 
     private Life life;
@@ -35,17 +37,16 @@ public class MoveSnake : MonoBehaviour
         snakeLength = lifepoints;
         AddBodySnake();
     }
-    private void Awake()
-    {
-        obstacle = GameObject.FindWithTag("Block").GetComponent<Obstacle>();
-    }
 
+    //Text visulization
     private void LateUpdate()
     {
         points.text = lifepoints.ToString();
         textUI.text = scorecount.ToString();
+        textUILoseScore.text = scorecount.ToString();
+        
     }
-
+    //Snake Movement
     private void FixedUpdate()
     {
         //Tener en cuenta hacer una guarda de seguridad para que no continue avanzando
@@ -79,27 +80,34 @@ public class MoveSnake : MonoBehaviour
         }
     }
 
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-
+        //PickUp
         if (other.gameObject.tag == "Lifes")
         {
             life = GameObject.FindWithTag("Lifes").GetComponent<Life>();
-            Debug.Log("Detected"+ life.RndLife);
             lifepoints = lifepoints + life.RndLife;
             AddBodySnake();
         }
+        //Collision whit block
         if (other.gameObject.tag == "Block")
         {
-            Debug.Log("Detected" +obstacle.ObstaclePoints);
-            scorecount += obstacle.ObstaclePoints;   
-            if (lifepoints == 0)
+            obstacle = GameObject.FindWithTag("Block").GetComponent<Obstacle>();
+            scorecount += obstacle.ObstaclePoints;
+            if(lifepoints > 0)
+            {
+                lifepoints -= obstacle.ObstaclePoints;
+                
+            }
+            if (lifepoints <= 0)
             {
                 Destroy(gameObject);
+                                
             }
-            //Falta reiniciar lvl actual y puntaje, guardar puntaje global
         }
     }
+    //Spawner 
     void AddBodySnake()
     {
     for (int i = 0; i < snakeLength; i++)

@@ -6,7 +6,8 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     private int obstaclePoints;
-    public TextMesh textcounter;
+    [SerializeField]
+    private TextMesh textcounter;
 
     public int ObstaclePoints
         {
@@ -21,7 +22,14 @@ public class Obstacle : MonoBehaviour
     {
         textcounter.text = obstaclePoints.ToString();
     }
-
-
+    /*private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (obstaclePoints <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }*/
 }
-//Falta que se descuenten al colisionar 

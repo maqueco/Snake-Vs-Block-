@@ -7,6 +7,7 @@ public class Life : MonoBehaviour
     private int rndLife;
     [SerializeField]
     private TextMesh LifeText;
+
     public int RndLife
     {
         get { return rndLife; }
