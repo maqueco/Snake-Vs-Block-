@@ -5,25 +5,37 @@ using UnityEngine;
 
 public class MoveSnake : MonoBehaviour
 {
+    public List<GameObject> snakeParts; //To add more objects
     [SerializeField]
     private float moveSpeed = 1f;
     [SerializeField]
     private float speed = .1f;
-    public List<GameObject> snakeParts; //To add more objects
     private Vector2 lastLocation;
-   // private int lifepoints = 4;
-   // public GameObject player;
-   // public Text points;
-    int count;
+    private int lifepoints;
+    private int lifecount;
+    [SerializeField]
+    private TextMesh points;
     Rigidbody2D rb;
+
+    private Life lf;
+    private Obstacle obstacle;
+
+    
 
     void Start()
     {
+        lifepoints = 4;
+    }
 
+
+    private void Update()
+    {
+        points.text = lifepoints.ToString();
     }
 
     private void FixedUpdate()
     {
+        //Tener en cuenta hacer una guarda de seguridad para que no continue avanzando
         snakeParts[0].transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
         lastLocation = snakeParts[0].transform.position;
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x , lastLocation.y, Camera.main.transform.position.z);
@@ -56,11 +68,12 @@ public class MoveSnake : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
         if (other.gameObject.tag == "Lifes")
         {
             Debug.Log("Detected");
-            count = count + 1;
-            Debug.Log("count " + count);
+            lifepoints = lifepoints + 1;
+            Debug.Log("count " + lifecount);
             //Agregar en el scrip de life el numero de vidas de cada objeto y sumarlo al personaje
         }
         if (other.gameObject.tag == "Block")

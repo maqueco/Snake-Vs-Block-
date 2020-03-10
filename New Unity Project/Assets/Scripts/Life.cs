@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Life : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int rndlife;
+    public TextMesh lifetext;
+
+    private void Start()
     {
-        
+        rndlife = Random.Range(1, 10);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        lifetext.text = rndlife.ToString();
     }
     private void OnTriggerEnter2D(Collider2D lifeIcon)
     {
@@ -23,6 +24,6 @@ public class Life : MonoBehaviour
         }
     }
 }
-/*Falta agregar variable global para poder sumar las vidas que se agregen
+/*Falta sumar las vidas que se agregen
 *agregar texto con el numero de vida
 */ 
