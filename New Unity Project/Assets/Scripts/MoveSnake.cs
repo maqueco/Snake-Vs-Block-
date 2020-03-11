@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -11,43 +12,67 @@ public class MoveSnake : MonoBehaviour
     [SerializeField]
     private float speed = .1f;
     private Vector2 lastLocation;
-    private static int lifepoints;
-    private int scorecount;
+    private static int lifePoints;
+    private int scoreCount;
 
     [SerializeField]
-    private TextMesh points;
+    private TextMesh points = null;
     [SerializeField]
-    private Text textUI;
-    [SerializeField]
-    private Text textUILoseScore;
-    Rigidbody2D rb;
+    private Text textUI = null;
+    public GameObject textWin;
 
     private Life life;
     private Obstacle obstacle;
         
     [SerializeField]
-    private GameObject part;
+    private GameObject part = null;
     private GameObject newPart;
     private int snakeLength;
+    bool IsWait = false;
 
-    void Start()
+    void Awake()
     {
-        lifepoints = 4;
-        scorecount = 0;
-        snakeLength = lifepoints;
+        lifePoints = 4;
+        scoreCount = 0;
+        snakeLength = lifePoints;
+    }
+    private void Start()
+    {
         AddBodySnake();
+        
     }
 
     //Text visulization
-    private void LateUpdate()
+    private void Update()
     {
-        points.text = lifepoints.ToString();
-        textUI.text = scorecount.ToString();
-        textUILoseScore.text = scorecount.ToString();
-        
+        points.text = lifePoints.ToString();
+        textUI.text = scoreCount.ToString();
+        Move();
+        if (IsWait)
+        {
+            moveSpeed = 0;
+            if (lifePoints > 0 && obstacle.ObstaclePoints > 0)
+            {
+                lifePoints--;
+                //points.text = lifePoints.ToString();
+                //textUI.text = scoreCount.ToString();
+            }
+            if ( obstacle.ObstaclePoints == 0)
+            {
+                moveSpeed = 3f;
+                IsWait = false;
+            }
+            else if(lifePoints == 0) 
+            {
+                SceneManager.LoadScene("Lose");
+            }
+        }
+
+
     }
     //Snake Movement
-    private void FixedUpdate()
+    
+    private void Move()
     {
         //Tener en cuenta hacer una guarda de seguridad para que no continue avanzando
         snakeParts[0].transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
@@ -87,40 +112,48 @@ public class MoveSnake : MonoBehaviour
         if (other.gameObject.tag == "Lifes")
         {
             life = GameObject.FindWithTag("Lifes").GetComponent<Life>();
-            lifepoints = lifepoints + life.RndLife;
+            lifePoints = lifePoints + life.RndLife;
             AddBodySnake();
         }
+        if(other.gameObject.tag == "FinishLine")
+        {
+            textWin.gameObject.SetActive(true);
+        }
+
         //Collision whit block
         if (other.gameObject.tag == "Block")
         {
             obstacle = GameObject.FindWithTag("Block").GetComponent<Obstacle>();
-            scorecount += obstacle.ObstaclePoints;
-            if(lifepoints > 0)
+            scoreCount += obstacle.ObstaclePoints;
+            if(lifePoints > 0)
             {
-                lifepoints -= obstacle.ObstaclePoints;
+                IsWait = true;
+                //lifePoints -= obstacle.ObstaclePoints;
                 
             }
-            if (lifepoints <= 0)
+            /*if (lifepoints <= 0)
             {
+                lifepoints -= obstacle.ObstaclePoints;
                 Destroy(gameObject);
-                                
-            }
+                SceneManager.LoadScene("Lose");
+                
+            }*/
         }
     }
     //Spawner 
     void AddBodySnake()
     {
-    for (int i = 0; i < snakeLength; i++)
-    {
-        if (i == 0)
+        for (int i = 0; i < snakeLength; i++)
         {
-            newPart = Instantiate(part, lastLocation, Quaternion.identity);
+            if (i == 0)
+            {
+                newPart = Instantiate(part, lastLocation, Quaternion.identity);
+            }
+            else
+            {
+                newPart = Instantiate(part, new Vector3(snakeParts[i - 1].transform.position.x, snakeParts[i - 1].transform.position.y - 1f, 0f), Quaternion.identity);
+            }
+            snakeParts.Add(newPart);
         }
-        else
-        {
-            newPart = Instantiate(part, new Vector3(snakeParts[i - 1].transform.position.x, snakeParts[i - 1].transform.position.y - 1f, 0f), Quaternion.identity);
-        }
-        snakeParts.Add(newPart);
-    }
     }
 }
