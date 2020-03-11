@@ -8,30 +8,31 @@ public class MoveSnake : MonoBehaviour
 {
     public List<GameObject> snakeParts; //To add more objects
     [SerializeField]
-    private float moveSpeed = 1f;
+    private float moveSpeed = 1f; //Speed in Y axis
     [SerializeField]
-    private float speed = .1f;
-    private Vector2 lastLocation;
-    private static int lifePoints;
-    private int scoreCount;
+    private float speed = .1f; // Speed in X axis
+    private Vector2 lastLocation;  // last location from Snake
+    private static int lifePoints; // Snake life points
+    private int scoreCount; // Score
 
     [SerializeField]
-    private TextMesh points = null;
+    private TextMesh points = null; // Text for Snake life points
     [SerializeField]
-    private Text textUI = null;
-    public GameObject textWin;
+    private Text textUI = null; // Text for Score
+    public GameObject textWin; // To Activate Win Text
 
-    private Life life;
-    private Obstacle obstacle;
+    private Life life; // Class life
+    private Obstacle obstacle; // Clas obstacle
         
     [SerializeField]
-    private GameObject part = null;
-    private GameObject newPart;
+    private GameObject part = null; // Body Snake
+    private GameObject newPart; // Body Snake
     private int snakeLength;
     bool IsWait = false;
 
     void Awake()
     {
+        //Some inicializations
         lifePoints = 4;
         scoreCount = 0;
         snakeLength = lifePoints;
@@ -42,27 +43,26 @@ public class MoveSnake : MonoBehaviour
         
     }
 
-    //Text visulization
     private void Update()
     {
+        //Text visulization
         points.text = lifePoints.ToString();
         textUI.text = scoreCount.ToString();
         Move();
+        //Stop snake,substract points and continue or lose
         if (IsWait)
         {
             moveSpeed = 0;
             if (lifePoints > 0 && obstacle.ObstaclePoints > 0)
             {
                 lifePoints--;
-                //points.text = lifePoints.ToString();
-                //textUI.text = scoreCount.ToString();
             }
             if ( obstacle.ObstaclePoints == 0)
             {
                 moveSpeed = 3f;
                 IsWait = false;
             }
-            else if(lifePoints == 0) 
+            else if(lifePoints <= 0) 
             {
                 SceneManager.LoadScene("Lose");
             }
@@ -70,11 +70,11 @@ public class MoveSnake : MonoBehaviour
 
 
     }
-    //Snake Movement
     
+    //Snake Movement
     private void Move()
     {
-        //Tener en cuenta hacer una guarda de seguridad para que no continue avanzando
+        //Position for Snake Head
         snakeParts[0].transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
         lastLocation = snakeParts[0].transform.position;
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x , lastLocation.y, Camera.main.transform.position.z);
@@ -87,7 +87,7 @@ public class MoveSnake : MonoBehaviour
                 part.transform.position = newPosition;
             }
         }
-
+        //Move in X
         if (Input.GetAxis("Horizontal") > 0)
         {
             if (transform.position.x < 3)
@@ -125,19 +125,8 @@ public class MoveSnake : MonoBehaviour
         {
             obstacle = GameObject.FindWithTag("Block").GetComponent<Obstacle>();
             scoreCount += obstacle.ObstaclePoints;
-            if(lifePoints > 0)
-            {
-                IsWait = true;
-                //lifePoints -= obstacle.ObstaclePoints;
-                
-            }
-            /*if (lifepoints <= 0)
-            {
-                lifepoints -= obstacle.ObstaclePoints;
-                Destroy(gameObject);
-                SceneManager.LoadScene("Lose");
-                
-            }*/
+            IsWait = true;
+
         }
     }
     //Spawner 
