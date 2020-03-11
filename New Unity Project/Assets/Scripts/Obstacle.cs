@@ -17,7 +17,7 @@ public class Obstacle : MonoBehaviour
 
     private void Start()
     {
-        obstaclePoints = Random.Range(1, 30);
+        obstaclePoints = Random.Range(1, 15);
     }
     void Update()
     {
