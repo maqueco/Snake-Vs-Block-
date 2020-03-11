@@ -149,6 +149,7 @@ MonoBehaviour:
   speed: 0.1
   points: {fileID: 162060419526158108}
   textUI: {fileID: 0}
+  textWin: {fileID: 0}
   part: {fileID: 8147558003645009931, guid: b7c0acf96799855429bb400f0fc3c7a5, type: 3}
 --- !u!1 &162060419526158109
 GameObject:

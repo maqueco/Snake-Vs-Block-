@@ -7,29 +7,44 @@ public class Obstacle : MonoBehaviour
 {
     private int obstaclePoints;
     [SerializeField]
-    private TextMesh textcounter;
-
+    private TextMesh textcounter = null;
+    bool IsSmash = false;
     public int ObstaclePoints
+
         {
             get { return obstaclePoints; }
         }
 
     private void Start()
     {
-        obstaclePoints = Random.Range(1, 50);
+        obstaclePoints = Random.Range(1, 30);
     }
     void Update()
     {
         textcounter.text = obstaclePoints.ToString();
+        if (IsSmash)
+        {
+            if (obstaclePoints > 0)
+            {
+                obstaclePoints -= 1;
+
+            }
+        }
     }
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (obstaclePoints <= 0)
+            if (obstaclePoints >= 0)
             {
-                Destroy(this.gameObject);
+                IsSmash = true;
             }
+            Invoke("waitToDestroy", .2f);
         }
-    }*/
+    }
+
+    private void waitToDestroy()
+    {
+        Destroy(gameObject);
+    }
 }
