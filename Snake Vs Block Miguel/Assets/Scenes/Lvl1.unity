@@ -187,8 +187,8 @@ Canvas:
   m_GameObject: {fileID: 58423063}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -311,6 +311,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!102 &380693849 stripped
+TextMesh:
+  m_CorrespondingSourceObject: {fileID: 1156208275709226376, guid: 956809f79066c27468174120ab012dcd,
+    type: 3}
+  m_PrefabInstance: {fileID: 6614944688295865959}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,19 +502,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &1290426097
-BoxCollider:
+--- !u!61 &1290426097
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290426096}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.16, y: 0.16}
+  m_EdgeRadius: 0
 --- !u!212 &1290426098
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -589,7 +608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1309301850
 RectTransform:
   m_ObjectHideFlags: 0
@@ -606,8 +625,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 59, y: 130}
-  m_SizeDelta: {x: 173.51, y: 38.1}
+  m_AnchoredPosition: {x: 9.93, y: 130}
+  m_SizeDelta: {x: 124.61, y: 56.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1309301851
 MonoBehaviour:
@@ -631,18 +650,20 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MaxSize: 45
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Nivel completado!
+  m_Text: 'Level
+
+    Complete!'
 --- !u!222 &1309301852
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -766,6 +787,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube
       objectReference: {fileID: 0}
+    - target: {fileID: 4600696369224737639, guid: b51f07858d06fb94995022200901d825,
+        type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4289807730770388000, guid: b51f07858d06fb94995022200901d825,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -842,11 +868,6 @@ PrefabInstance:
       propertyPath: boxText
       value: 
       objectReference: {fileID: 1232032632}
-    - target: {fileID: 4600696369224737639, guid: b51f07858d06fb94995022200901d825,
-        type: 3}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b51f07858d06fb94995022200901d825, type: 3}
 --- !u!1001 &6614944688295865959
@@ -918,6 +939,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
         type: 3}
+      propertyPath: bodySnake.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
+        type: 3}
       propertyPath: helperTexDisable
       value: 
       objectReference: {fileID: 260823274}
@@ -942,6 +968,42 @@ PrefabInstance:
       propertyPath: lifeCount
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
+        type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
+        type: 3}
+      propertyPath: bodySnake.Array.data[0]
+      value: 
+      objectReference: {fileID: 877426010}
+    - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
+        type: 3}
+      propertyPath: snakeTail
+      value: 
+      objectReference: {fileID: 1209539314596696995, guid: a973c97a69d3a07479d2d3aa0a5784c1,
+        type: 3}
+    - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
+        type: 3}
+      propertyPath: life
+      value: 
+      objectReference: {fileID: 380693849}
+    - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
+        type: 3}
+      propertyPath: lifePointsSnake
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
+        type: 3}
+      propertyPath: snakeFifeText
+      value: 
+      objectReference: {fileID: 380693849}
+    - target: {fileID: 1156208276005979175, guid: 956809f79066c27468174120ab012dcd,
+        type: 3}
+      propertyPath: snakeLifeText
+      value: 
+      objectReference: {fileID: 380693849}
     - target: {fileID: 6614944690246647724, guid: 956809f79066c27468174120ab012dcd,
         type: 3}
       propertyPath: m_IsActive

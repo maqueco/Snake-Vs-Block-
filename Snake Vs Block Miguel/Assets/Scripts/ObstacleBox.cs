@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cube : MonoBehaviour
+public class ObstacleBox : MonoBehaviour
 {
    
     public Box box;
     private int lifePointsBox;
-    private SpriteRenderer colorBox;
+    private SpriteRenderer colorBox = null;
     [SerializeField]
     private TextMesh boxText;
 
@@ -28,11 +28,5 @@ public class Cube : MonoBehaviour
     private void ChangeColor()
     {
         colorBox.color = box.BoxColor;
-    }
-
-    private void SeeNumberText()
-    {
-        boxText = GetComponentInChildren<TextMesh>();
-        boxText.text = lifePointsBox.ToString();
     }
 }
