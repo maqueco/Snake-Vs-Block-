@@ -5,26 +5,27 @@ using UnityEngine.SceneManagement;
 public class MoveManager : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> bodySnake = null; //body of the snake
+    private List<GameObject> bodySnake = null;  //body of the snake
     [SerializeField]
-    private GameObject snakeTail = null; //tail for instantiate
+    private GameObject snakeTail = null;  //tail for instantiate
     private GameObject nextSnakeTail; //new tail
 
     [SerializeField]
     private int lifePointsSnake = 4;  // starting minimun life
     [SerializeField]
-    private float moveSpeedY = 1f; // moveSpeedY for movement in .y
+    private float moveSpeedY = 1f;  // moveSpeedY for movement in .y
 
     [SerializeField]
-    private TextMesh snakeLifeText;      // Player Life
+    private TextMesh snakeLifeText;  // Player Life
     private TextMesh boxLifeText;  // Cube Life
 
     private bool needWait = false;  // Just for a "wait instance"
     private int auxLifeSmash;   // to save the current random  life smash from the cube
     private int auxPick;      // to save the current random  life smash from the pick
+    //private GameObject aux;  // just for help
+
     private Vector2 lastPosition;  // saving
-    private GameObject aux;  // just for help
-    private PickUpLife pickUpLife; // to save the current PickUp
+    private PickUpLife pickUpLife;  // to save the current PickUp
     private ObstacleBox obstacelBox;   // to save the curren cube
 
 
@@ -112,7 +113,7 @@ public class MoveManager : MonoBehaviour
         if (other.gameObject.CompareTag("Cube"))
         {
             needWait = true;
-            aux = other.gameObject;
+           // aux = other.gameObject;
             Invoke("DisableObjects", 0.4f); //just for effects
         }
         //Pick detected?
@@ -162,6 +163,6 @@ public class MoveManager : MonoBehaviour
     //Disabling the object
     private void DisableObjects()
     {
-        aux.SetActive(false);
+        //aux.SetActive(false);
     }
 }
