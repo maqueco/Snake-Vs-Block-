@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de1c12a5f6854fd4b88297e79ff52186, type: 3}
-  m_Name: New Box
+  m_Name: New Box 1
   m_EditorClassIdentifier: 
-  colorBox: {r: 0.04356533, g: 0.5683405, b: 0.8396226, a: 1}
-  minLifeRange: 1
-  maxLifeRange: 10
+  colorBox: {r: 0.5754717, g: 0.26477432, b: 0.04071733, a: 1}
+  minLifeRange: 10
+  maxLifeRange: 20

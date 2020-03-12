@@ -5,11 +5,11 @@ using UnityEngine;
 public class ObstacleBox : MonoBehaviour
 {
    
-    public Box box;
+    public BoxScriptableObject box;
     private int lifePointsBox;
-    private SpriteRenderer colorBox = null;
-    [SerializeField]
-    private TextMesh boxText;
+    private SpriteRenderer spriteRendColorBox = null;
+    /*[SerializeField]
+    private TextMesh boxText;*/
 
     // Generates a random number for fun
 
@@ -25,8 +25,9 @@ public class ObstacleBox : MonoBehaviour
         get { return randomizeLifeBox(); }
     }
 
-    private void ChangeColor()
+    private void Start()
     {
-        colorBox.color = box.BoxColor;
+        spriteRendColorBox = GetComponent<SpriteRenderer>();
+        spriteRendColorBox.color = box.colorBox;
     }
 }

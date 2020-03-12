@@ -62,7 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Box.cs" />
+    <Compile Include="Assets\Scripts\BoxScriptableObject.cs" />
     <Compile Include="Assets\Scripts\MoveManager.cs" />
     <Compile Include="Assets\Scripts\ObstacleBox.cs" />
     <Compile Include="Assets\Scripts\PickUpLife.cs" />
