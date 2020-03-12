@@ -12,7 +12,8 @@ public class Controllers : MonoBehaviour
     private GameObject newTail; //new tail
     [SerializeField]
     private GameObject helperTexDisable = null; // just for disabling the "Pick Number"
-    private int lifeCount = 4;  // starting minimun life
+    [SerializeField]
+    public int lifeCount = 4;  // starting minimun life
     private float speed = 0.5f; // speed for movement in .y
     private PickUpLife currentPick; // to save the current PickUp
     private Cube currentCube;   // to save the curren cube
@@ -22,7 +23,6 @@ public class Controllers : MonoBehaviour
     private int auxLifeSmash;   // to save the current random  life smash from the cube
     private int auxPick;      // to save the current random  life smash from the pick
     private Vector2 lastPos;  // saving
-    private int length;       // to save the length of the list
     private GameObject aux;  // just for help
     [SerializeField]
     private GameObject auxFinish = null;  // trying to make the "you win or level passed" 
@@ -36,12 +36,10 @@ public class Controllers : MonoBehaviour
         currentPick = GameObject.FindWithTag("LifePick").GetComponent<PickUpLife>();
         cubeLife = GameObject.FindWithTag("Number").GetComponent<TextMesh>();
         life = GameObject.FindWithTag("Life").GetComponent<TextMesh>();
-        life.text = "4";
+        life.text = lifeCount.ToString();
         auxLifeSmash = currentCube.LifeSmasher;
-        auxPick = currentPick.Lpick;
         cubeLife.text = auxLifeSmash.ToString();
-        length = 4;
-       
+        auxPick = currentPick.LifePickValue;
     }
     private void Start()
     {
@@ -51,6 +49,7 @@ public class Controllers : MonoBehaviour
 
     private void Update()
     {
+        Move();
         // Checking if wait is needed
         if (needWait)
         {
@@ -60,7 +59,6 @@ public class Controllers : MonoBehaviour
             {
                 auxLifeSmash--;
                 lifeCount--;
-                length = lifeCount;
                 dropTail();
                 life.text = lifeCount.ToString();
                 cubeLife.text = auxLifeSmash.ToString();
@@ -77,19 +75,19 @@ public class Controllers : MonoBehaviour
     }
     
     //Moving the snake
-    private void FixedUpdate()
+    private void Move()
     {
     transform.position += new Vector3(Input.GetAxis("Horizontal"), speed * Time.deltaTime, 0);
 
     lastPos = transform.position;
 
-    if (transform.position.x < -3)
+    if (transform.position.x < -3.7)
     {
-        transform.position = new Vector3(-3, transform.position.y);
+        transform.position = new Vector3(-3.7f, transform.position.y);
     }
-    else if (transform.position.x > 3)
+    else if (transform.position.x > 3.7)
     {
-        transform.position = new Vector3(3, transform.position.y);
+        transform.position = new Vector3(3.7f, transform.position.y);
     }
     //Moving the tail and body of the snake
     foreach (GameObject tail in body){
@@ -123,7 +121,7 @@ public class Controllers : MonoBehaviour
             lifeCount = lifeCount + auxPick;
             other.gameObject.SetActive(false);
             helperTexDisable.SetActive(false);
-            length = lifeCount;
+            //length = lifeCount;
             addToTail();
             life.text = lifeCount.ToString();
         }
@@ -138,8 +136,8 @@ public class Controllers : MonoBehaviour
     //Adding elements to the list
     void addToTail()
     {
-        Debug.Log("Here, length: " + length.ToString());
-        for (int i = 0; i < length && length != body.Count; i++)
+        Debug.Log("Here, length: " + lifeCount.ToString());
+        for (int i = 0; i < lifeCount && lifeCount != body.Count; i++)
         {
             if (i == 0)   //just for solve a bug
             {
@@ -156,8 +154,8 @@ public class Controllers : MonoBehaviour
     //Removing elements from the snake
     void dropTail()
     {
-        Debug.Log("Here, length: " + length.ToString());
-        for (int i = length - 1; i >=  0  && length != body.Count; i--)
+        Debug.Log("Here, length: " + lifeCount.ToString());
+        for (int i = lifeCount; i >=  0  && lifeCount != body.Count; i--)
         {
             Destroy(body[i]);
             body.Remove(body[i]);
