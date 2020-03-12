@@ -22,7 +22,7 @@ public class MoveSnake : MonoBehaviour
     public GameObject textWin; // To Activate Win Text
 
     private Life life; // Class life
-    private Obstacle obstacle; // Clas obstacle
+    private Obstacle obstacle; // Class obstacle
         
     [SerializeField]
     private GameObject part = null; // Body Snake
